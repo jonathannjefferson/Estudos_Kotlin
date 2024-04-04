@@ -15,9 +15,14 @@ data class Gamer(var nome: String, var email: String) {
         }
     var idInterno: String? = null
         private set
+    var plano: Plano = PlanoAvulso("BRONZE")
     val jogosBuscados = mutableListOf<Jogo?>()
     val jogosAlugados = mutableListOf<Aluguel>()
-
+    fun jogosDoMes(mes:Int): List<Jogo> {
+        return jogosAlugados
+            .filter { aluguel ->  aluguel.periodo.dataInicial.monthValue == mes}
+            .map { aluguel ->  aluguel.jogo}
+    }
     constructor(nome: String, email: String, dataNascimento: String, usuario: String) : this(nome, email) {
         this.dataNascimento = dataNascimento
         this.usuario = usuario
